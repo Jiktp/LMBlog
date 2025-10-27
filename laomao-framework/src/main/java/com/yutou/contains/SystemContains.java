@@ -17,4 +17,6 @@ public class SystemContains {
      * 热门文章展示条数
      */
     public static final int ARTICLE_LIST_PAGE = 10;
+
+    public static final String  STATUS_NORMAL = "0";
 }

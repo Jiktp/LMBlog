@@ -34,7 +34,7 @@ public class BeanCopyUtils {
     }
 
 
-
+    //测试
     public static void main(String[] args) {
         Article article = new Article();
         article.setId(1L);

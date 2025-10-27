@@ -19,4 +19,8 @@ public class SystemContains {
     public static final int ARTICLE_LIST_PAGE = 10;
 
     public static final String  STATUS_NORMAL = "0";
+    /**
+     * 友链审核通过状态
+     */
+    public static final String LINK_STATUS_NORMAL = "0";
 }

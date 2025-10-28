@@ -14,10 +14,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-/**
- *
- * @date 2023/7/22 0022 21:49
- */
+
 @Configuration
 //WebSecurityConfigurerAdapter是Security官方提供的类
 public class SecurityConfig extends WebSecurityConfigurerAdapter {

@@ -35,7 +35,7 @@ public class BlogLoginServiceImpl implements BlogLoginService {
     public ResponseResult login(User user) {
         //封装登录的用户名和密码
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserName(),user.getPassword());
-        //在下一行之前，封装的数据会先走UserDetailsServiceImpl实现类，这个实现类在我们的huanf-framework工程的service/impl目录里面
+        //在下一行之前，封装的数据会先走UserDetailsServiceImpl实现类，这个实现类在我们的yutou-framework工程的service/impl目录里面
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
         //上面那一行会得到所有的认证用户信息authenticate。然后下一行需要判断用户认证是否通过，如果authenticate的值是null，就说明认证没有通过
         if(Objects.isNull(authenticate)){

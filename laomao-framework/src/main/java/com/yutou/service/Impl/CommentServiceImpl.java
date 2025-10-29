@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yutou.contains.SystemContains;
 import com.yutou.domain.ResponseResult;
 import com.yutou.domain.entity.Comment;
-import com.yutou.domain.entity.User;
 import com.yutou.domain.vo.CommentVo;
 import com.yutou.domain.vo.PageVo;
 import com.yutou.enums.AppHttpCodeEnum;
@@ -15,7 +14,6 @@ import com.yutou.mapper.CommentMapper;
 import com.yutou.service.CommentService;
 import com.yutou.service.UserService;
 import com.yutou.utils.BeanCopyUtils;
-import com.yutou.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -35,14 +33,16 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     private UserService userService;
 
     @Override
-    public ResponseResult commentList(Long articleId, Integer pageNum, Integer pageSize) {
+    public ResponseResult commentList(String commentType, Long articleId, Integer pageNum, Integer pageSize) {
         //查询对应文章的根评论
-
-        //对articleId进行判断
         LambdaQueryWrapper<Comment> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Comment::getArticleId, articleId);
+        //对articleId进行判断
+        queryWrapper.eq(SystemContains.ARTICLE_COMMENT.equals(commentType),Comment::getArticleId, articleId);
         //根评论rootId为-1
         queryWrapper.eq(Comment::getRootId, SystemContains.ROOT_STATUS_NORMAL);
+
+        //评论类型
+        queryWrapper.eq(Comment::getType, commentType);
         //分页查询
         Page<Comment> page = new Page<>(pageNum, pageSize);
         page(page, queryWrapper);

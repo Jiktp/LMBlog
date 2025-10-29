@@ -1,5 +1,6 @@
 package com.yutou.controller;
 
+import com.yutou.contains.SystemContains;
 import com.yutou.domain.ResponseResult;
 import com.yutou.domain.entity.Comment;
 import com.yutou.service.CommentService;
@@ -13,7 +14,7 @@ public class CommentController {
     private CommentService commentService;
 
     /**
-     * 查看评论
+     * 文章评论
      * @param articleId
      * @param pageNum
      * @param pageSize
@@ -21,12 +22,23 @@ public class CommentController {
      */
     @GetMapping("commentList")
     public ResponseResult commentList(Long articleId, Integer pageNum, Integer pageSize){
-        return commentService.commentList(articleId,pageNum,pageSize);
+        return commentService.commentList(SystemContains.ARTICLE_COMMENT,articleId,pageNum,pageSize);
     }
 
     @PostMapping
     public ResponseResult addComment(@RequestBody Comment comment){
         return commentService.addComment(comment);
+    }
+
+    /**
+     * 友链评论
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @GetMapping("/lickCommentList")
+    public ResponseResult linkCommentList(Integer pageNum, Integer pageSize){
+        return commentService.commentList(SystemContains.LINK_COMMENT,null,pageNum,pageSize);
     }
 
 }

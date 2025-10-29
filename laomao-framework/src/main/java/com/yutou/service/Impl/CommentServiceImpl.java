@@ -9,12 +9,16 @@ import com.yutou.domain.entity.Comment;
 import com.yutou.domain.entity.User;
 import com.yutou.domain.vo.CommentVo;
 import com.yutou.domain.vo.PageVo;
+import com.yutou.enums.AppHttpCodeEnum;
+import com.yutou.exception.SystemException;
 import com.yutou.mapper.CommentMapper;
 import com.yutou.service.CommentService;
 import com.yutou.service.UserService;
 import com.yutou.utils.BeanCopyUtils;
+import com.yutou.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -57,20 +61,36 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     }
 
     /**
+     * 添加评论
+     * @param comment
+     * @return
+     */
+    @Override
+    public ResponseResult addComment(Comment comment) {
+        //使用mybatis差劲直接将共同字段进行填充
+        //评论内容不能为空
+        if (!StringUtils.hasText(comment.getContent())){
+            throw new SystemException(AppHttpCodeEnum.CONTENT_NOT_NULL);
+        }
+        save(comment);
+        return ResponseResult.okResult();
+    }
+
+    /**
      * 获取评论人和被评论人的昵称
      * @param list
      * @return
      */
     private List<CommentVo> toCommentVoList(List<Comment> list) {
         List<CommentVo> commentVos = BeanCopyUtils.copyBeanList(list, CommentVo.class);
-        //遍历Vo集合
+        //遍历vo集合
         for (CommentVo commentVo : commentVos) {
-            //遍历createBy查询用户的昵称并赋值
+            //通过creatyBy查询用户的昵称并赋值
             String nickName = userService.getById(commentVo.getCreateBy()).getNickName();
             commentVo.setUserName(nickName);
-            //通过tocommentUserid查询用户的昵称并赋值
-            //如果tocommentUserId不为-1才进行查询
-            if(commentVo.getToCommentUserId() != -1){
+            //通过toCommentUserId查询用户的昵称并赋值
+            //如果toCommentUserId不为-1才进行查询
+            if(commentVo.getToCommentUserId()!=-1){
                 String toCommentUserName = userService.getById(commentVo.getToCommentUserId()).getNickName();
                 commentVo.setToCommentUserName(toCommentUserName);
             }

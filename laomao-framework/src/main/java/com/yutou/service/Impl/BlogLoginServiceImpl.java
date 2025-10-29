@@ -30,7 +30,7 @@ public class BlogLoginServiceImpl implements BlogLoginService {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    //RedisCache是我们在huanf-framework工程的config目录写的类
+    //RedisCache是我们在laomao-framework工程的config目录写的类
     private RedisCache redisCache;
 
     @Override

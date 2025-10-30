@@ -4,11 +4,13 @@ import com.yutou.contains.SystemContains;
 import com.yutou.domain.ResponseResult;
 import com.yutou.domain.entity.Comment;
 import com.yutou.service.CommentService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/comment")
+@Slf4j
 public class CommentController {
     @Autowired
     private CommentService commentService;
@@ -22,6 +24,7 @@ public class CommentController {
      */
     @GetMapping("commentList")
     public ResponseResult commentList(Long articleId, Integer pageNum, Integer pageSize){
+        log.info("友链或文章评论:{}", articleId, pageNum, pageSize);
         return commentService.commentList(SystemContains.ARTICLE_COMMENT,articleId,pageNum,pageSize);
     }
 
@@ -36,8 +39,9 @@ public class CommentController {
      * @param pageSize
      * @return
      */
-    @GetMapping("/lickCommentList")
+    @GetMapping("/linkCommentList")
     public ResponseResult linkCommentList(Integer pageNum, Integer pageSize){
+        log.info("友链评论：{}",pageNum,pageSize);
         return commentService.commentList(SystemContains.LINK_COMMENT,null,pageNum,pageSize);
     }
 

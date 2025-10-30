@@ -32,6 +32,14 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     @Autowired
     private UserService userService;
 
+    /**
+     * 文章或友链评论查询
+     * @param commentType
+     * @param articleId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @Override
     public ResponseResult commentList(String commentType, Long articleId, Integer pageNum, Integer pageSize) {
         //查询对应文章的根评论

@@ -1,6 +1,7 @@
 package com.yutou.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.yutou.domain.ResponseResult;
 import com.yutou.domain.entity.User;
 
 /**
@@ -11,5 +12,6 @@ import com.yutou.domain.entity.User;
  */
 public interface UserService extends IService<User> {
 
+    ResponseResult userInfo();
 }
 

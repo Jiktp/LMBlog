@@ -75,7 +75,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
      */
     @Override
     public ResponseResult addComment(Comment comment) {
-        //使用mybatis差劲直接将共同字段进行填充
+        //使用mybatisplus插件直接将共同字段进行填充
         //评论内容不能为空
         if (!StringUtils.hasText(comment.getContent())){
             throw new SystemException(AppHttpCodeEnum.CONTENT_NOT_NULL);

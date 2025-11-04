@@ -1,18 +1,21 @@
 server:
-  port: 7777
+  port: ${blog.server.port}
+
 spring:
+  profiles:
+    active: dev
   datasource:
     url: jdbc:mysql://localhost:3306/yutou_blog?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
-    username: root
-    password: 12345678
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${blog.datasource.username}
+    password: ${blog.datasource.password}
+    driver-class-name: ${blog.datasource.driver-class-name}
   servlet:
     multipart:
       max-file-size: 2MB
       max-request-size: 5MB
+
 mybatis-plus:
   configuration:
-    #日志
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     db-config:
@@ -20,3 +23,11 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
       id-type: auto
+
+# OSS 配置占位符，引用 dev 环境实际值
+blog:
+  alioss:
+    endpoint: ${blog.alioss.endpoint}
+    access-key: ${blog.alioss.access-key}
+    secret-key: ${blog.alioss.secret-key}
+    bucketName: ${blog.alioss.bucketName}

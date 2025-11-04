@@ -4,7 +4,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.yutou"})
 @MapperScan("com.yutou.mapper")
 public class LaoMaoBlogApplication {
     public static void main(String[] args) {
